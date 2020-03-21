@@ -5,6 +5,25 @@ function _fetchLocation(input) {
     .then(locations => locations.predictions)
   }
 
+function _getLatLong(location) {
+  return new Promise((resolve, reject) => {
+    geocoder.geocode(location,  (err, data) => {
+      try {
+        if (err || !data.results || !data.results.length || !data.results[0].geometry) {
+          console.log(data);
+          if (data && data.status === 'OVER_QUERY_LIMIT') {
+            reject('OVER_QUERY_LIMIT');
+          }
+          return resolve(false);
+        } 
+        return resolve(data.results[0].geometry.location);
+      } catch(e) {
+        return resolve(false);
+      }
+    });
+  })
+}  
+
 export function fetchStartingLocation(input) {
   console.log(input)
   return (dispatch) => {
