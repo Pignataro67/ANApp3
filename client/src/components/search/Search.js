@@ -21,15 +21,14 @@ handleChangeStart = (e) => {
   })
 }
 
-handleChangeDestination = (e, {value: destination}) => {
+handleChangeDestination = (e) => {
   this.setState({
-    destination
+    destination: e.target.value
   })
 }
 
 handleStartSearch = (e) => {
   e.preventDefault()
-
 }
 
 handleDestinationSearch = (e) => {
@@ -54,7 +53,7 @@ handleUpdateAddress = (e) => {
         handleUpdateAddress={this.handleUpdateAddress}/>
           <br/> 
           <br/>
-        <SearchInput label="Destination..." onChange={this.handleChangeDestination} onClick={this.handleDestinationSearch}/> 
+        <SearchInput label="Destination..." suggestedLocations={this.props.suggestedDestinations} onChange={this.handleChangeDestination} onSubmit={this.handleDestinationSearch} handleUpdateAddress={this.handleUpdateDestinationAddress}/> 
           <br/>
           <br/> 
         <Button buttonTitle="Submit" onClick={this.handleFormSubmit}/>
