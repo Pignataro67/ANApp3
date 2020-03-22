@@ -55,3 +55,20 @@ export function convertDestinationLatLong(location) {
     _getLatLong(location).then(destinationLatLong => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLatLong}))
   }
 }
+
+export function convertLatLong(startLocation, destinationLocation){
+  return async (dispatch) => {
+    await dispatch(convertStartLatLong(startLocation))
+    await dispatch(convertDestinationLatLong(destinationLocation))
+    debugger
+  }
+}
+
+export function getMapboxKey(){
+  return (dispatch) => {
+    dispatch({ type: 'FETCHING_MAPBOX_KEY' });
+    fetch("/RailsApi/confirm_route/mapbox")
+    .then(response => response.text())
+    .then(key => dispatch({ type: 'ADD_MAPBOX_KEY_TO_STATE', key }));
+  };
+}
