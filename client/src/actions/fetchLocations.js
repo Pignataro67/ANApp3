@@ -39,3 +39,19 @@ export function fetchDestination(input) {
       _fetchLocation(input).then(suggestedDestinations => dispatch({ type: 'DISPLAY_DESTINATIONS', suggestedDestinations }));
     };
 }
+
+export function convertStartLatLong(location) {
+  console.log(location)
+  return (dispatch) => {
+    dispatch({type: 'CONVERTING_START_LAT_LONG'})
+    _getLatLong(location).then(startLatLong => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLatLong}))
+  }
+}
+
+export function convertDestinationLatLong(location) {
+  console.log(location)
+  return (dispatch) => {
+    dispatch({type: 'CONVERTING_DESTINATION_LAT_LONG'})
+    _getLatLong(location).then(destinationLatLong => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLatLong}))
+  }
+}
