@@ -34,4 +34,8 @@ const mapStateToProps = (state) => {
   return {startingLocation: state.StartingLocation, destination: state.destination}
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {getMapboxKey: () => dispatch(getMapboxKey())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
