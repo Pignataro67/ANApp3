@@ -6,8 +6,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ConfirmRouteContainer from './containers/ConfirmRouteContainer';
 import ResultsContainer from './containers/ResultsContainer';
 import SearchContainer from './containers/SearchContainer';
+import Background from './images/Background.jpg';
+import { getMapboxKey } from './actions/fetchLocations';
 
 class App extends Component {
+  
+  componentDidMount(){
+    this.props.getMapboxKey()
+  }
 
   render() {
   return (
