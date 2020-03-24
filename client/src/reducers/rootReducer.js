@@ -1,13 +1,15 @@
 export default function rootReducer(state = {
-  startingLocation: '', destination: '',
+  isFetchingMapboxKey: '', destination: '',
   isFetchingStartingLocation: false,
   isFetchingDestination: false,
   suggestedStartingLocations: [],
   suggestedDestinations: [],
   isConvertingStartLatLong: false,
   isConvertingDestinationLatLong: false,
-  startLngLat: '',
-  destinationLngLat: ''
+  startLat: '',
+  startLong: '',
+  destinationLat: '',
+  destinationLong: '',
   }, action) {
   switch(action.type) {
     case 'FETCHING_MAPBOX_KEY':
@@ -25,11 +27,11 @@ export default function rootReducer(state = {
     case "CONVERTING_START_LAT_LONG":
       return {...state, isConvertingStartLatLong: true}
     case "RETRIEVE_START_LAT_LONG":
-      return {...state, isConvertingStartLatLong: false, startLngLat: action.coordinates}
+      return {...state, isConvertingStartLatLong: false, startLat: action.startLat, startLong:action.startLong}
     case "CONVERTING_DESTINATION_LAT_LONG":
       return {...state, isConvertingDestinationLatLong: true}
     case "RETRIEVE_DESTINATION_LAT_LONG":
-      return {...state, isConvertingDestinationLatLong: false, destinationLngLat: action.coordinates }  
+      return {...state, isConvertingDestinationLatLong: false, destinationLat: action.destinationLat, destinationLong: action.destinationLong }  
         default:
     return state
   }

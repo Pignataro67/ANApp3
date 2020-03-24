@@ -17,6 +17,7 @@ handleFormSubmit = async (e) => {
   await this.props.actions.convertLatLong(this.state.startingLocation, this.state.destination)        this.setState({
   redirectToConfirmRoute: true
   })
+  
   this.props.actions.fetchStartingLocation(this.state.startingLocation)
 }
 
@@ -49,12 +50,12 @@ handleUpdateAddress = (e) => {
 }
 
   render() {
-    const { redirectToConfirmRoute} = this.state;
+    const { redirectToConfirmRoute } = this.state;
 
       if(redirectToConfirmRoute) {
         return <Redirect to='/confirm_route' />;
     }
-    
+
     return (
       <Card >
         <SearchInput label="Starting Location..." />
