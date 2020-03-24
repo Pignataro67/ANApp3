@@ -22,17 +22,18 @@ export function fetchStartingLocation(input) {
 
 export function fetchDestination(input) {
   console.log(input)
-    return (dispatch) => {
-      dispatch({ type: 'FETCHING_SUGGESTED_DESTINATION' });
-      _fetchLocation(input).then(suggestedDestinations => dispatch({ type: 'DISPLAY_DESTINATIONS', suggestedDestinations }));
-    };
+  return (dispatch) => {
+    dispatch({ type: 'FETCHING_SUGGESTED_DESTINATION' });
+    _fetchLocation(input).then(suggestedDestinations => dispatch({ type: 'DISPLAY_DESTINATIONS', suggestedDestinations }));
+  };
 }
 
 export function convertStartLatLong(location) {
   console.log(location)
   return (dispatch) => {
     dispatch({type: 'CONVERTING_START_LAT_LONG'})
-    _getLatLong(location).then(startLatLong => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLatLong}))
+    return
+    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLat: lat, startLatLong: lng}))
   }
 }
 
@@ -40,7 +41,8 @@ export function convertDestinationLatLong(location) {
   console.log(location)
   return (dispatch) => {
     dispatch({type: 'CONVERTING_DESTINATION_LAT_LONG'})
-    _getLatLong(location).then(destinationLatLong => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLatLong}))
+    return
+    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLat: lat, destinationLong: lng}))
   }
 }
 

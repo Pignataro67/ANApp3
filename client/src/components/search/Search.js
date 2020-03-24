@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import SearchInput from "./SearchInput";
 import Button from "../Button";
 import Card from "../Card";
+import { Redirect } from "react-router-dom";
 
 class Search extends Component {
 
   state = {
     startingLocation: '',
-    destination: ''
+    destination: '',
+    redirectToConfirmRoute: false
 }
 
-handleFormSubmit = (e) => {
+handleFormSubmit = async (e) => {
   e.preventDefault()
+  await this.props.actions.convertLatLong(this.state.startingLocation, this.state.destination)        this.setState({
+  redirectToConfirmRoute: true
+  })
   this.props.actions.fetchStartingLocation(this.state.startingLocation)
 }
 
@@ -44,6 +49,12 @@ handleUpdateAddress = (e) => {
 }
 
   render() {
+    const { redirectToConfirmRoute} = this.state;
+
+      if(redirectToConfirmRoute) {
+        return <Redirect to='/confirm_route' />;
+    }
+    
     return (
       <Card >
         <SearchInput label="Starting Location..." />
