@@ -32,8 +32,8 @@ class RouteMap extends Component{
     const {Map} = this.state
     return Map? (
     <Map
-      style="mapbox://styles/mapbox/streets-v9"
-      center={this.props.startLngLat}
+      style={"mapbox://styles/mapbox/streets-v9"}
+      center={[this.props.startLng, this.props.startLat]}
       containerStyle={{
         position: 'relative',
         height: "300px",
@@ -45,8 +45,8 @@ class RouteMap extends Component{
       layout={{
           'icon-image': 'star-15',
           'icon-allow-overlap': true }}>
-    <Marker coordinates={this.props.startLngLat}/>
-    <Marker coordinates={this.props.destinationLngLat}/>
+    <Marker coordinates={[this.props.startLng, this.props.startLat]}/>
+    <Marker coordinates={[this.props.destinationLngLatdestinationLng, this.props.destinationLat]}/>
     </Layer>
     </Map>
     ): null

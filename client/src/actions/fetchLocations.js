@@ -62,10 +62,10 @@ export function convertDestinationLatLong(location) {
   }
 }
 
-export function convertLatLong(startLocation, destinationLocation){
+export function convertLatLong(startLocation, destinationLocation) {
   return async (dispatch) => {
-    await dispatch(convertStartLatLong(startLocation))
-    await dispatch(convertDestinationLatLong(destinationLocation))
+    await dispatch(_convertStartLatLong(startLocation))
+    await dispatch(_convertDestinationLatLong(destinationLocation))
     debugger
   }
 }
