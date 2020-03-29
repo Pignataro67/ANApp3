@@ -14,7 +14,8 @@ class Search extends Component {
 
 handleFormSubmit = async (e) => {
   e.preventDefault()
-  await this.props.actions.convertLatLong(this.state.startingLocation, this.state.destination)        this.setState({
+  await this.props.actions.convertLatLong(this.state.startingLocation, this.state.destination)
+  this.setState({
   redirectToConfirmRoute: true
   })
   

@@ -3,7 +3,7 @@ function _fetchDropdownLocations(input) {
     return fetch(`RailsApi/search_locations/${input}`)
     .then(response => response.json())
     .then(locations => locations.predictions)
-  }
+}
 
 function _getLatLong(location) {
   return 
@@ -17,7 +17,7 @@ function _convertStartLatLong(location) {
   return (dispatch) => {
     dispatch({type: 'CONVERTING_START_LAT_LONG'})
     return _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLat: lat, startLng: lng}))
-  }
+  };
 }
 
 function _convertDestinationLatLong(location) {
@@ -25,7 +25,7 @@ function _convertDestinationLatLong(location) {
   return (dispatch) => {
     dispatch({type: 'CONVERTING_DESTINATION_LAT_LONG'})
     return _getLatLong(location).then(({ lat, lng })=> dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLat: lat, destinationLng: lng }))
-  }
+  };
 }
 
 export function fetchStartingLocation(input) {
@@ -49,8 +49,8 @@ export function convertStartLatLong(location) {
   return (dispatch) => {
     dispatch({type: 'CONVERTING_START_LAT_LONG'})
     return
-    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLat: lat, startLatLong: lng}))
-  }
+    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_START_LAT_LONG', startLat: lat, startLatLong: lng}));
+  };
 }
 
 export function convertDestinationLatLong(location) {
@@ -58,8 +58,8 @@ export function convertDestinationLatLong(location) {
   return (dispatch) => {
     dispatch({type: 'CONVERTING_DESTINATION_LAT_LONG'})
     return
-    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLat: lat, destinationLong: lng}))
-  }
+    _getLatLong(location).then(({ lat, lng }) => dispatch({type: 'RETRIEVE_DESTINATION_LAT_LONG', destinationLat: lat, destinationLong: lng}));
+  };
 }
 
 export function convertLatLong(startLocation, destinationLocation) {
@@ -67,15 +67,24 @@ export function convertLatLong(startLocation, destinationLocation) {
     await dispatch(_convertStartLatLong(startLocation))
     await dispatch(_convertDestinationLatLong(destinationLocation))
     debugger
-  }
+  };
 }
 
 export function fetchUberEstimate(startLat, startLng, destinationLat, destinationLng) {
   return (dispatch) => {
     dispatch({ type: 'FETCHING_UBER_ESTIMATE' });
-    fetch(`/RailsApi/uber_lyft/?startLat=${startLat}&startLng=${startLng}&destinationLat=${destinationLat}&destinationLng=${destinationLng}`)
+    fetch(`/RailsApi/uber?startLat=${startLat}&startLng=${startLng}&destinationLat=${destinationLat}&destinationLng=${destinationLng}`)
     .then(response => response.json())  
-    .then(data => console.log(data));
+    .then(data => dispatch({ type: 'ADD_UBER_ESTIMATES_TO_STATE', estimates: data.prices }))
+  };
+}
+
+export function fetchLyftEstimate(startLat, startLng, destinationLat, destinationLng) {
+  return (dispatch) => {
+    dispatch({ type: 'FETCHING_LYFT_ESTIMATE' });
+    fetch(`/RailsApi/lyft?startLat=${startLat}&startLng=${startLng}&destinationLat=${destinationLat}&destinationLng=${destinationLng}`)
+    .then(response => response.json())
+    .then(data => dispatch({ type: 'ADD_LYFT_ESTIMATES_TO_STATE', estimates: data.cost_estimates })) 
   };
 }  
 
