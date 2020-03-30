@@ -28,6 +28,18 @@ function _convertDestinationLatLong(location) {
   };
 }
 
+function _normalizeUber({ prices }){
+  return prices.map(({ display_name, estimate }) => (
+    {type: display_name, costEstimate: estimate}
+  ))
+}
+
+function _normalizeLyft({ cost_estimates }){
+  return cost_estimates.map(({display_name, estimated_cost_cents_min, estimated_cost_cents_max}) => (
+    {type: display_name, costEstimate: `$${estimated_cost_cents_min / 100} - ${estimated_cost_cents_max / 100}`}
+  ))
+}
+
 export function fetchStartingLocation(input) {
   console.log(input)
   return (dispatch) => {
